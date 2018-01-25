@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <a href="https://sweetalert.js.org/guides/#getting-started">SweetAlert</a>
+    
+    <button onclick="myFunction()">Click me</button>
+    <button onclick="myFunction2()">Click me 2</button>
+    <button onclick="myFunction3()">Click me 3</button>
+    <button onclick="myFunctionAJAX()">Click me AJAX</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    //swal("Here's the title!", "...and here's the text!");
+    swal("Good job!", "You clicked the button!", "success", {
+  button: "Aww yiss!",
+});
+}
+
+function myFunction2() {
+swal({
+  title: "Are you sure?",
+  text: "Once deleted, you will not be able to recover this imaginary file!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Poof! Your imaginary file has been deleted!", {
+      icon: "success",
+    });
+  } else {
+    swal("Your imaginary file is safe!");
+  }
+});
+}
+
+function myFunction3() {
+swal("A wild Pikachu appeared! What do you want to do?", {
+  buttons: {
+    cancel: "Run away!",
+    catch: {
+      text: "Throw Pokéball!",
+      value: "catch",
+    },
+    defeat: true,
+  },
+})
+.then((value) => {
+  switch (value) {
+ 
+    case "defeat":
+      swal("Pikachu fainted! You gained 500 XP!");
+      break;
+ 
+    case "catch":
+      swal("Gotcha!", "Pikachu was caught!", "success");
+      break;
+ 
+    default:
+      swal("Got away safely!");
+  }
+});
+}
+
+function myFunctionAJAX() {
+swal({
+  text: 'Search for a movie. e.g. "La La Land".',
+  content: "input",
+  button: {
+    text: "Search!",
+    closeModal: false,
+  },
+})
+.then(name => {
+  if (!name) throw null;
+ 
+  return fetch(`https://itunes.apple.com/search?term=${name}&entity=movie`);
+})
+.then(results => {
+  return results.json();
+})
+.then(json => {
+  const movie = json.results[0];
+ 
+  if (!movie) {
+    return swal("No movie was found!");
+  }
+ 
+  const name = movie.trackName;
+  const imageURL = movie.artworkUrl100;
+ 
+  swal({
+    title: "Top result:",
+    text: name,
+    icon: imageURL,
+  });
+})
+.catch(err => {
+  if (err) {
+    swal("Oh noes!", "The AJAX request failed!", "error");
+  } else {
+    swal.stopLoading();
+    swal.close();
+  }
+});
+}
+</script>
+
+   
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+  </body>
+</html>
